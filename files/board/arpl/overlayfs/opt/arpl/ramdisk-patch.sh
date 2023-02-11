@@ -115,6 +115,12 @@ gzip -dc "${MODULES_PATH}/firmware.tgz" | tar xf - -C "${RAMDISK_PATH}/usr/lib/f
 # Clean
 rm -rf "${TMP_PATH}/modules"
 
+# Copy extra modules for SA6400
+if [ "${MODEL}" == "SA6400" ]; then
+  cp "${MODULES_SA6400_PATH}"/*.ko "${RAMDISK_PATH}/usr/lib/modules/"
+  cp -r "${MODULES_SA6400_PATH}"/firmware/i915 "${RAMDISK_PATH}/usr/lib/firmware"
+fi
+
 echo -n "."
 # Copying fake modprobe
 cp "${PATCH_PATH}/iosched-trampoline.sh" "${RAMDISK_PATH}/usr/sbin/modprobe"
@@ -152,6 +158,11 @@ for ADDON in ${!ADDONS[@]}; do
     exit 1
   fi
   echo "/addons/${ADDON}.sh \${1} ${PARAMS}" >> "${RAMDISK_PATH}/addons/addons.sh" 2>"${LOG_FILE}" || dieLog
+
+  if [ "${ADDON}" == "dbgutils" ]; then
+    # enable telnet for debugging
+    echo 'inetd' >> "${RAMDISK_PATH}/addons/addons.sh"
+  fi
 done
 
 # Build modules dependencies
@@ -166,7 +177,7 @@ else
 fi
 
 # Clean
-rm -rf "${RAMDISK_PATH}"
+# rm -rf "${RAMDISK_PATH}"
 
 # Update SHA256 hash
 RAMDISK_HASH="`sha256sum ${ORI_RDGZ_FILE} | awk '{print$1}'`"
