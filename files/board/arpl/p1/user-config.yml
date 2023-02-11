@@ -1,0 +1,40 @@
+lkm: dev
+directboot: "true"
+model: "SA6400"
+build: "42962"
+sn: "0000XXXBN4YEE"
+maxdisks: ""
+layout: qwerty
+keymap: ""
+zimage-hash: "d5b8af848fc585695e35bd1c4f4c953fd8e54435b2799face4f8f350bac6df93"
+ramdisk-hash: "d4efe45fc4dd71758fe365f7eb39d24982d1440b00986259cab9a03577982f68"
+cmdline:
+  netif_num: "4"
+  mac1: 7e21363bcd1b
+  mac2: 7e21363bcd3b
+  mac3: 7e21363bcd5b
+  mac4: 7e21363bcd7b
+  i915.enable_guc: "2"
+synoinfo:
+  support_disk_compatibility: no
+  support_memory_compatibility: no
+  support_led_brightness_adjustment: no
+  rss_server: https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.xml
+  rss_server_ssl: https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.xml
+  rss_server_v2: https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.json
+addons:
+  misc: ""
+  acpid: ""
+modules:
+  alx: ""
+  e1000: ""
+  igc: ""
+  virtio: ""
+  virtio_mmio: ""
+  virtio_net: ""
+  virtio_pci: ""
+  virtio_ring: ""
+  virtio_scsi: ""
+original-mac: 7e21463bcd4b
+vid: "0x46f4"
+pid: "0x0001"
