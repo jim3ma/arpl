@@ -20,6 +20,7 @@ MOD_RDGZ_FILE="${CACHE_PATH}/initrd-dsm"
 ADDONS_PATH="${CACHE_PATH}/addons"
 LKM_PATH="${CACHE_PATH}/lkms"
 MODULES_PATH="${CACHE_PATH}/modules"
+MODULES_SA6400_PATH="${CACHE_PATH}/modules-sa6400"
 
 MODEL_CONFIG_PATH="/opt/arpl/model-configs"
 INCLUDE_PATH="/opt/arpl/include"
