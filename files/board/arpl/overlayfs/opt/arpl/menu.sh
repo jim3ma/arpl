@@ -538,7 +538,8 @@ function extractDsmFiles() {
   fi
 
   echo -n "Checking hash of ${PAT_FILE}: "
-  if [ "`sha256sum ${PAT_PATH} | awk '{print$1}'`" != "${PAT_HASH}" ]; then
+  HASH=`sha256sum ${PAT_PATH} | awk '{print$1}'`
+  if [ "$HASH" != "${PAT_HASH}" ]; then
     dialog --backtitle "`backtitle`" --title "Error" --aspect 18 \
       --msgbox "Hash of pat not match, try again!" 0 0
     rm -f ${PAT_PATH}
