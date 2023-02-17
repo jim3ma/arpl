@@ -110,7 +110,10 @@ for F in `ls "${TMP_PATH}/modules/"*.ko`; do
   if arrayExistItem "${M:0:-3}" "${!USERMODULES[@]}"; then
     cp -f "${F}" "${RAMDISK_PATH}/usr/lib/modules/${M}"
   else
-    rm -f "${RAMDISK_PATH}/usr/lib/modules/${M}"
+    # Skip delete modules for SA6400
+    if [ ! "${MODEL}" == "SA6400" ]; then
+      rm -f "${RAMDISK_PATH}/usr/lib/modules/${M}"
+    fi
   fi
 done
 mkdir -p "${RAMDISK_PATH}/usr/lib/firmware"
