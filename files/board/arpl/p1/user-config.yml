@@ -21,12 +21,14 @@ synoinfo:
   support_led_brightness_adjustment: no
   supportraidgroup: "no"
   support_syno_hybrid_raid: "yes"
+  support_m2_pool: "yes"
   rss_server: https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.xml
   rss_server_ssl: https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.xml
   rss_server_v2: https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.json
 addons:
   acpid: ""
   console: ""
+  cpuinfo: ""
   disks: ""
   misc: ""
   dbgutils: ""
