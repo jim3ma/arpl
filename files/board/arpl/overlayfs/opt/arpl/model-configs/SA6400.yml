@@ -6,6 +6,9 @@ synoinfo: &synoinfo
   supportraidgroup: "no"
   support_syno_hybrid_raid: "yes"
   support_m2_pool: "yes"
+  internal_disk_without_led_mask: "yes"
+  support_led_behavior_v2: "no"
+  support_leds_atmega1608: "no"
   rss_server: "https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.xml"
   rss_server_ssl: "https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.xml"
   rss_server_v2: "https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.json"
@@ -45,6 +48,27 @@ builds:
       md5-hash: "685328ae906d9fb269395d057e1511df"
     patch:
       - "ramdisk-common-disable-root-pwd.patch"
-      - "ramdisk-sa6400-init-script.patch"
+      - "ramdisk-sa6400-42962-init-script.patch"
+      - "ramdisk-common-etc-rc.patch"
+      - "ramdisk-42951-post-init-script.patch"
+  64216:
+    ver: "7.2"
+    kver: "5.10.55"
+    rd-compressed: false
+    efi-bug: no
+    cmdline:
+      <<: *cmdline
+    synoinfo:
+      <<: *synoinfo
+    pat:
+      url: "https://cndl.synology.cn/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
+      # url: "https://global.download.synology.com/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
+      hash: "d9b15dd4aafc09da038fb329b15a8145d5f6ac54a4697b96474a8acd8a860325"
+      ramdisk-hash: "c5f805f13d0ca29f8a5c41b447131ed149df212ee5ea25dabb3fc405ec286a74"
+      zimage-hash: "c1481b8687482b08ec109417394f767abb2a3cdd53c3c8fef79a9569b922cd9c"
+      md5-hash: "d7671bd17ea0fd8b68340ee12de9cd5d"
+    patch:
+      - "ramdisk-sa6400-64216-disable-root-pwd.patch"
+      - "ramdisk-sa6400-64216-init-script.patch"
       - "ramdisk-common-etc-rc.patch"
       - "ramdisk-42951-post-init-script.patch"
