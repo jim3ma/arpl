@@ -125,6 +125,7 @@ rm -rf "${TMP_PATH}/modules"
 if [ "${MODEL}" == "SA6400" ]; then
   cp "${MODULES_SA6400_PATH}"/*.ko "${RAMDISK_PATH}/usr/lib/modules/"
   cp -r "${MODULES_SA6400_PATH}"/firmware/i915 "${RAMDISK_PATH}/usr/lib/firmware"
+  cp -r "${MODULES_SA6400_PATH}"/firmware/ast_dp501_fw.bin "${RAMDISK_PATH}/usr/lib/firmware"
 fi
 
 echo -n "."
@@ -173,6 +174,17 @@ done
 
 # Build modules dependencies
 /opt/arpl/depmod -a -b ${RAMDISK_PATH} 2>/dev/null
+
+# Patch get_state.cgi to disable network check for junior mode
+sed -i 's/cable_ok=true/cable_ok=false/' ${RAMDISK_PATH}/usr/syno/web/webman/get_state.cgi
+
+# For some devices, /dev/console does not exist, need two steps to fix:
+#   1. change linuxrc.syno output to /var/log/rc
+#   2. fake a new avaliable /dev/console by "mknod -m 0666 /dev/console c 1 3"
+if [ "${MODEL}" == "SA6400" ]; then
+  sed -i 's#/dev/console#/var/log/rc #g' ${RAMDISK_PATH}/usr/bin/busybox
+  sed -i '/^echo "START/a \\nmknod -m 0666 /dev/console c 1 3' ${RAMDISK_PATH}/linuxrc.syno
+fi
 
 # Reassembly ramdisk
 echo -n "."
