@@ -22,6 +22,10 @@ synoinfo:
   supportraidgroup: "no"
   support_syno_hybrid_raid: "yes"
   support_m2_pool: "yes"
+  internal_disk_without_led_mask: "yes"
+  support_led_behavior_v2: "no"
+  support_leds_atmega1608: "no"
+  support_oob_ctl: "no"
   rss_server: https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.xml
   rss_server_ssl: https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.xml
   rss_server_v2: https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.json
@@ -45,6 +49,7 @@ modules:
   failover: ""
   mii: ""
   net_failover: ""
+  r8125: ""
   r8152: ""
   r8168: ""
   r8169: ""

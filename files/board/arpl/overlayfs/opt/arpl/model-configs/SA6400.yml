@@ -9,6 +9,7 @@ synoinfo: &synoinfo
   internal_disk_without_led_mask: "yes"
   support_led_behavior_v2: "no"
   support_leds_atmega1608: "no"
+  support_oob_ctl: "no"
   rss_server: "https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.xml"
   rss_server_ssl: "https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.xml"
   rss_server_v2: "https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.json"
@@ -20,7 +21,6 @@ cmdline: &cmdline
   vender_format_version: 2
 platform: "epyc7002"
 unique: "synology_epyc7002_sa6400"
-beta: true
 dom: 2
 serial:
   prefix:
@@ -40,8 +40,8 @@ builds:
     synoinfo:
       <<: *synoinfo
     pat:
-      url: "https://cndl.synology.cn/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
-      # url: "https://global.download.synology.com/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
+      # url: "https://cndl.synology.cn/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
+      url: "https://global.download.synology.com/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
       hash: "5912848e9329f44767b2b6277053f2c7649380a1665c64a8984f11d8cf23a2de"
       ramdisk-hash: "269091f07901bbb72c23b6349a91d01259143debf721f03521f6ca81cdd1c079"
       zimage-hash: "a44e94a22ddfb35e1b4d7b25253f6d0e266b0b675a4ca965023326a0884a2cf7"
@@ -61,8 +61,8 @@ builds:
     synoinfo:
       <<: *synoinfo
     pat:
-      url: "https://cndl.synology.cn/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
-      # url: "https://global.download.synology.com/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
+      # url: "https://cndl.synology.cn/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
+      url: "https://global.download.synology.com/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
       hash: "d9b15dd4aafc09da038fb329b15a8145d5f6ac54a4697b96474a8acd8a860325"
       ramdisk-hash: "c5f805f13d0ca29f8a5c41b447131ed149df212ee5ea25dabb3fc405ec286a74"
       zimage-hash: "c1481b8687482b08ec109417394f767abb2a3cdd53c3c8fef79a9569b922cd9c"
