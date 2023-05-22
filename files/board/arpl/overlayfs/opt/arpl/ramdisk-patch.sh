@@ -35,6 +35,7 @@ SN="`readConfigKey "sn" "${USER_CONFIG_FILE}"`"
 LAYOUT="`readConfigKey "layout" "${USER_CONFIG_FILE}"`"
 KEYMAP="`readConfigKey "keymap" "${USER_CONFIG_FILE}"`"
 UNIQUE=`readModelKey "${MODEL}" "unique"`
+DSM_VER=`readModelKey "${MODEL}" "builds.${BUILD}.ver"`
 
 if [ ${BUILD} -ne ${buildnumber} ]; then
   echo -e "\033[A\n\033[1;32mBuild number changed from \033[1;31m${BUILD}\033[1;32m to \033[1;31m${buildnumber}\033[0m"
@@ -105,17 +106,17 @@ echo -n "."
 rm -rf "${TMP_PATH}/modules"
 mkdir -p "${TMP_PATH}/modules"
 gzip -dc "${MODULES_PATH}/${PLATFORM}-${KVER}.tgz" | tar xf - -C "${TMP_PATH}/modules"
-for F in `ls "${TMP_PATH}/modules/"*.ko`; do
-  M=`basename ${F}`
-  if arrayExistItem "${M:0:-3}" "${!USERMODULES[@]}"; then
-    cp -f "${F}" "${RAMDISK_PATH}/usr/lib/modules/${M}"
-  else
-    # Skip delete modules for SA6400
-    if [ ! "${MODEL}" == "SA6400" ]; then
-      rm -f "${RAMDISK_PATH}/usr/lib/modules/${M}"
-    fi
-  fi
-done
+# for F in `ls "${TMP_PATH}/modules/"*.ko`; do
+#   M=`basename ${F}`
+#   if arrayExistItem "${M:0:-3}" "${!USERMODULES[@]}"; then
+#     cp -f "${F}" "${RAMDISK_PATH}/usr/lib/modules/${M}"
+#   else
+#     # Skip delete modules for SA6400
+#     if [ ! "${MODEL}" == "SA6400" ]; then
+#       rm -f "${RAMDISK_PATH}/usr/lib/modules/${M}"
+#     fi
+#   fi
+# done
 mkdir -p "${RAMDISK_PATH}/usr/lib/firmware"
 gzip -dc "${MODULES_PATH}/firmware.tgz" | tar xf - -C "${RAMDISK_PATH}/usr/lib/firmware"
 # Clean
@@ -123,14 +124,17 @@ rm -rf "${TMP_PATH}/modules"
 
 # Copy extra modules for SA6400
 if [ "${MODEL}" == "SA6400" ]; then
+  MODULES_SA6400_PATH="${MODULES_SA6400_PATH}-${DSM_VER}"
   cp "${MODULES_SA6400_PATH}"/*.ko "${RAMDISK_PATH}/usr/lib/modules/"
   cp -r "${MODULES_SA6400_PATH}"/firmware/i915 "${RAMDISK_PATH}/usr/lib/firmware"
   cp -r "${MODULES_SA6400_PATH}"/firmware/ast_dp501_fw.bin "${RAMDISK_PATH}/usr/lib/firmware"
 fi
 
 echo -n "."
-# Copying fake modprobe
-cp "${PATCH_PATH}/iosched-trampoline.sh" "${RAMDISK_PATH}/usr/sbin/modprobe"
+
+# Link modprobe
+ln -sf /usr/bin/kmod "${RAMDISK_PATH}/usr/sbin/modprobe"
+
 # Copying LKM to /usr/lib/modules
 gzip -dc "${LKM_PATH}/rp-${PLATFORM}-${KVER}-${LKM}.ko.gz" > "${RAMDISK_PATH}/usr/lib/modules/rp.ko"
 
@@ -172,6 +176,13 @@ for ADDON in ${!ADDONS[@]}; do
   fi
 done
 
+# apply extra patches
+if [ -f "${RAMDISK_PATH}/addons/patches.sh" ]; then
+  # copy useful binaries
+  cp -rf ${RAMDISK_PATH}/opt/* /opt/
+  /usr/bin/bash "${RAMDISK_PATH}/addons/patches.sh" arpl ${ADDONS[patches]}
+fi
+
 # Build modules dependencies
 /opt/arpl/depmod -a -b ${RAMDISK_PATH} 2>/dev/null
 
@@ -181,9 +192,17 @@ sed -i 's/cable_ok=true/cable_ok=false/' ${RAMDISK_PATH}/usr/syno/web/webman/get
 # For some devices, /dev/console does not exist, need two steps to fix:
 #   1. change linuxrc.syno output to /var/log/rc
 #   2. fake a new avaliable /dev/console by "mknod -m 0666 /dev/console c 1 3"
-if [ "${MODEL}" == "SA6400" ]; then
+REDIRECT_LINUXRC_OUTPUT=false
+if [ "$REDIRECT_LINUXRC_OUTPUT" == "true" ]; then
   sed -i 's#/dev/console#/var/log/rc #g' ${RAMDISK_PATH}/usr/bin/busybox
   sed -i '/^echo "START/a \\nmknod -m 0666 /dev/console c 1 3' ${RAMDISK_PATH}/linuxrc.syno
+fi
+
+# Remove defult i915 modules and disable load relevant modules
+# so we can load other version i915 module later
+REMOVE_DEFAULT_I915_MODULES=false
+if [ "$REMOVE_DEFAULT_I915_MODULES" == "true" ]; then
+  (cd "${RAMDISK_PATH}/usr/lib/modules" && rm -f backport-sa6400-export-intel-lts.ko backport-sa6400-export.ko backport-sa6400.ko backport-dma-buf.ko backlight.ko video.ko fbdev.ko fbcore.ko hdmi.ko intel-gtt.ko iosf_mbi.ko drm_mipi_dsi.ko drm_panel_orientation_quirks.ko drm.ko drm_kms_helper.ko ttm.ko i915.ko drm_vram_helper.ko bochs-drm.ko)
 fi
 
 # Reassembly ramdisk

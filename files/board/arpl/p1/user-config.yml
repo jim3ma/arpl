@@ -1,20 +1,20 @@
 lkm: dev
 directboot: "true"
 model: "SA6400"
-build: "42962"
-sn: "0000XXXBN4YEE"
+build: "64561"
+sn: "2270XXXBN4YEE"
 maxdisks: ""
 layout: qwerty
 keymap: ""
-zimage-hash: "a44e94a22ddfb35e1b4d7b25253f6d0e266b0b675a4ca965023326a0884a2cf7"
-ramdisk-hash: "269091f07901bbb72c23b6349a91d01259143debf721f03521f6ca81cdd1c079"
+ramdisk-hash: "034d0d9a102e068054c8ef8afc6ff9a07fab056dafd5cc7c57cbb15eb5786315"
+zimage-hash: "bde2e7a7a482a21e2dc1d9a6ad4cc7b79726c7d63a5e7ff777dbd3ce2a638b68"
 cmdline:
   netif_num: "4"
-  mac1: 7e21363bcd1b
-  mac2: 7e21363bcd3b
-  mac3: 7e21363bcd5b
-  mac4: 7e21363bcd7b
-  i915.enable_guc: "2"
+  mac1: 7e21363bcd10
+  mac2: 7e21363bcd30
+  mac3: 7e21363bcd50
+  mac4: 7e21363bcd70
+  # i915.enable_guc: "2"
 synoinfo:
   support_disk_compatibility: no
   support_memory_compatibility: no
@@ -36,10 +36,12 @@ addons:
   kvm-intel: ""
   misc: ""
   dbgutils: ""
-  pciutils: ""
-  util-linux: ""
-  socat: ""
   qemu-ga: ""
+  entware: ""
+  bpftrace: ""
+  lshw: ""
+  kernel-headers: ""
+  patches: "1"
 modules:
   acpi-cpufreq: ""
   alx: ""
