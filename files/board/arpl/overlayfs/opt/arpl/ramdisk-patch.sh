@@ -103,9 +103,9 @@ rm "${TMP_PATH}/rp.txt"
 
 echo -n "."
 # Extract modules to ramdisk
-rm -rf "${TMP_PATH}/modules"
-mkdir -p "${TMP_PATH}/modules"
-gzip -dc "${MODULES_PATH}/${PLATFORM}-${KVER}.tgz" | tar xf - -C "${TMP_PATH}/modules"
+# rm -rf "${TMP_PATH}/modules"
+# mkdir -p "${TMP_PATH}/modules"
+# gzip -dc "${MODULES_PATH}/${PLATFORM}-${KVER}.tgz" | tar xf - -C "${TMP_PATH}/modules"
 # for F in `ls "${TMP_PATH}/modules/"*.ko`; do
 #   M=`basename ${F}`
 #   if arrayExistItem "${M:0:-3}" "${!USERMODULES[@]}"; then
@@ -124,8 +124,7 @@ rm -rf "${TMP_PATH}/modules"
 
 # Copy extra modules for SA6400
 if [ "${MODEL}" == "SA6400" ]; then
-  MODULES_SA6400_PATH="${MODULES_SA6400_PATH}-${DSM_VER}"
-  cp "${MODULES_SA6400_PATH}"/*.ko "${RAMDISK_PATH}/usr/lib/modules/"
+  cp "${MODULES_SA6400_PATH}/${DSM_VER}"/*.ko "${RAMDISK_PATH}/usr/lib/modules/"
   cp -r "${MODULES_SA6400_PATH}"/firmware/i915 "${RAMDISK_PATH}/usr/lib/firmware"
   cp -r "${MODULES_SA6400_PATH}"/firmware/ast_dp501_fw.bin "${RAMDISK_PATH}/usr/lib/firmware"
 fi

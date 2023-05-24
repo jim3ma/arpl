@@ -5,7 +5,7 @@
  echo "START /linuxrc.syno.impl"
 
 +set -x
-+echo insmod /usr/lib/modules/override.ko; insmod /usr/lib/modules/rp.ko;
++insmod /usr/lib/modules/rp.ko;
 +/addons/addons.sh early
 +
  . /etc.defaults/rc.subr
