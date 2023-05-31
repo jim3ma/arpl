@@ -122,9 +122,21 @@ gzip -dc "${MODULES_PATH}/firmware.tgz" | tar xf - -C "${RAMDISK_PATH}/usr/lib/f
 # Clean
 rm -rf "${TMP_PATH}/modules"
 
-# Copy extra modules for SA6400
+# Copy modules for SA6400
 if [ "${MODEL}" == "SA6400" ]; then
-  cp "${MODULES_SA6400_PATH}/${DSM_VER}"/*.ko "${RAMDISK_PATH}/usr/lib/modules/"
+  echo
+  for F in `ls "${MODULES_SA6400_PATH}/${DSM_VER}/"*.ko`; do
+    M=`basename ${F}`
+    if arrayExistItem "${M:0:-3}" "${!USERMODULES[@]}"; then
+      echo Copy modules $M
+      cp -f "${F}" "${RAMDISK_PATH}/usr/lib/modules/${M}"
+      for dep in $(grep "^$M:" "${MODULES_SA6400_PATH}/${DSM_VER}/modules.dep"); do
+        if [ -e "${MODULES_SA6400_PATH}/${DSM_VER}/${dep}" ]; then
+          cp -f "${MODULES_SA6400_PATH}/${DSM_VER}/${dep}" "${RAMDISK_PATH}/usr/lib/modules/"
+        fi
+      done
+    fi
+  done
   cp -r "${MODULES_SA6400_PATH}"/firmware/i915 "${RAMDISK_PATH}/usr/lib/firmware"
   cp -r "${MODULES_SA6400_PATH}"/firmware/ast_dp501_fw.bin "${RAMDISK_PATH}/usr/lib/firmware"
 fi
