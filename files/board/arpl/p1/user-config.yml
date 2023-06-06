@@ -6,6 +6,7 @@ sn: "2270XXXBN4YEE"
 maxdisks: ""
 layout: qwerty
 keymap: ""
+redirect-linuxrc-output: "true"
 ramdisk-hash: "034d0d9a102e068054c8ef8afc6ff9a07fab056dafd5cc7c57cbb15eb5786315"
 zimage-hash: "bde2e7a7a482a21e2dc1d9a6ad4cc7b79726c7d63a5e7ff777dbd3ce2a638b68"
 cmdline:
@@ -47,12 +48,13 @@ modules:
   # hba
   mpt3sas: ""
   aacraid: ""
+  # gpu
+  i915: ""
   # network
   alx: ""
   atlantic: ""
   e1000: ""
   e1000e: ""
-  i915: ""
   igb: ""
   igc: ""
   ixgb: ""

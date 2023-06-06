@@ -5,7 +5,7 @@
  IncompatibleRootDevice="/.incompatible_root_device"
  
 +set -x
-+insmod /usr/lib/modules/rp.ko
++# insmod /usr/lib/modules/rp.ko
 +/addons/addons.sh early
 +
  UmountRoot()

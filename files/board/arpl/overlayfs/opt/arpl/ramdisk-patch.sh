@@ -34,6 +34,8 @@ LKM="`readConfigKey "lkm" "${USER_CONFIG_FILE}"`"
 SN="`readConfigKey "sn" "${USER_CONFIG_FILE}"`"
 LAYOUT="`readConfigKey "layout" "${USER_CONFIG_FILE}"`"
 KEYMAP="`readConfigKey "keymap" "${USER_CONFIG_FILE}"`"
+REDIRECT_LINUXRC_OUTPUT="`readConfigKey "redirect-linuxrc-output" "${USER_CONFIG_FILE}"`"
+
 UNIQUE=`readModelKey "${MODEL}" "unique"`
 DSM_VER=`readModelKey "${MODEL}" "builds.${BUILD}.ver"`
 
@@ -144,7 +146,9 @@ fi
 echo -n "."
 
 # Link modprobe
-ln -sf /usr/bin/kmod "${RAMDISK_PATH}/usr/sbin/modprobe"
+cp "${PATCH_PATH}/modprobe-trampoline.sh" "${RAMDISK_PATH}/usr/sbin/modprobe"
+mkdir -p "${RAMDISK_PATH}/usr/local/sbin"
+ln -sf /usr/bin/kmod "${RAMDISK_PATH}/usr/local/sbin/modprobe"
 
 # Copying LKM to /usr/lib/modules
 gzip -dc "${LKM_PATH}/rp-${PLATFORM}-${KVER}-${LKM}.ko.gz" > "${RAMDISK_PATH}/usr/lib/modules/rp.ko"
@@ -200,20 +204,13 @@ fi
 # Patch get_state.cgi to disable network check for junior mode
 sed -i 's/cable_ok=true/cable_ok=false/' ${RAMDISK_PATH}/usr/syno/web/webman/get_state.cgi
 
-# For some devices, /dev/console does not exist, need two steps to fix:
+# For some devices, /dev/console does not exist or is slow to ready
+# need two steps to fix:
 #   1. change linuxrc.syno output to /var/log/rc
 #   2. fake a new avaliable /dev/console by "mknod -m 0666 /dev/console c 1 3"
-REDIRECT_LINUXRC_OUTPUT=false
 if [ "$REDIRECT_LINUXRC_OUTPUT" == "true" ]; then
   sed -i 's#/dev/console#/var/log/rc #g' ${RAMDISK_PATH}/usr/bin/busybox
   sed -i '/^echo "START/a \\nmknod -m 0666 /dev/console c 1 3' ${RAMDISK_PATH}/linuxrc.syno
-fi
-
-# Remove defult i915 modules and disable load relevant modules
-# so we can load other version i915 module later
-REMOVE_DEFAULT_I915_MODULES=false
-if [ "$REMOVE_DEFAULT_I915_MODULES" == "true" ]; then
-  (cd "${RAMDISK_PATH}/usr/lib/modules" && rm -f backport-sa6400-export-intel-lts.ko backport-sa6400-export.ko backport-sa6400.ko backport-dma-buf.ko backlight.ko video.ko fbdev.ko fbcore.ko hdmi.ko intel-gtt.ko iosf_mbi.ko drm_mipi_dsi.ko drm_panel_orientation_quirks.ko drm.ko drm_kms_helper.ko ttm.ko i915.ko drm_vram_helper.ko bochs-drm.ko)
 fi
 
 # Reassembly ramdisk
