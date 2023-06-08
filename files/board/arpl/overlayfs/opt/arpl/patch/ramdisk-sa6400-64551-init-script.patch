@@ -5,7 +5,7 @@
  echo "START /linuxrc.syno.impl"
 
 +set -x
-+# insmod /usr/lib/modules/rp.ko;
++sleep 10; # workaround to avoid overriding synobios and fake sata shim together
 +/addons/addons.sh early
 +
  . /etc.defaults/rc.subr

@@ -5,7 +5,7 @@
  IncompatibleRootDevice="/.incompatible_root_device"
  
 +set -x
-+# insmod /usr/lib/modules/rp.ko
++sleep 10; # workaround to avoid overriding synobios.ko and fake sata shim together
 +/addons/addons.sh early
 +
  UmountRoot()
