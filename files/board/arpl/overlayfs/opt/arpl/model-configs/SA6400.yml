@@ -41,18 +41,18 @@ builds:
     synoinfo:
       <<: *synoinfo
     pat:
-      # url: "https://cndl.synology.cn/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
-      url: "https://global.download.synology.com/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
-      hash: "5912848e9329f44767b2b6277053f2c7649380a1665c64a8984f11d8cf23a2de"
-      ramdisk-hash: "269091f07901bbb72c23b6349a91d01259143debf721f03521f6ca81cdd1c079"
-      zimage-hash: "a44e94a22ddfb35e1b4d7b25253f6d0e266b0b675a4ca965023326a0884a2cf7"
-      md5-hash: "685328ae906d9fb269395d057e1511df"
+      # url: "https://cndl.synology.cn/download/DSM/release/7.1.1/42962-6/DSM_SA6400_42962.pat"
+      url: "https://global.download.synology.com/download/DSM/release/7.1.1/42962-6/DSM_SA6400_42962.pat"
+      hash: "5c1d59c19b032183e92efd6c82a0573bc6704b22f7c92ed2c19e0e8ca4c777d8"
+      ramdisk-hash: "8499dfdf5c4e355455b9f802c4277f31b412f8caa8fdd8e5bb28b124e5c4dd84"
+      zimage-hash: "bcbb35ae4b74c0b05f0bea2d1ab5125f911475e4f963b3050d442ad25fbbdd59"
+      md5-hash: "7bb63d65829b2ad4bcfda3b37e0ac1b1"
     patch:
       - "ramdisk-common-disable-root-pwd.patch"
       - "ramdisk-sa6400-42962-init-script.patch"
       - "ramdisk-common-etc-rc.patch"
       - "ramdisk-42951-post-init-script.patch"
-  64551:
+  64570:
     ver: "7.2"
     kver: "5.10.55"
     rd-compressed: false
@@ -62,33 +62,12 @@ builds:
     synoinfo:
       <<: *synoinfo
     pat:
-      # url: "https://cndl.synology.cn/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
-      url: "https://global.download.synology.com/download/DSM/release/7.1.1/42962-4/DSM_SA6400_42962.pat"
-      hash: "1ef25a47a1007382f7a3c6e740427ecaca50efa99e77308f076202fdffdad2cb"
-      ramdisk-hash: "21d03f5241c714f9232a0befaf05bb2c759369c41d50181e7b0da106d0237d7f"
-      zimage-hash: "e636d48b485f90c421372a721b3a4c237098f377b22ad6e846666bba4fb23f09"
-      md5-hash: "ef8ebe0f0f8734026c300515fd8a69ed"
-    patch:
-      - "ramdisk-sa6400-64551-disable-root-pwd.patch"
-      - "ramdisk-sa6400-64551-init-script.patch"
-      - "ramdisk-common-etc-rc.patch"
-      - "ramdisk-42951-post-init-script.patch"
-  64561:
-    ver: "7.2"
-    kver: "5.10.55"
-    rd-compressed: false
-    efi-bug: no
-    cmdline:
-      <<: *cmdline
-    synoinfo:
-      <<: *synoinfo
-    pat:
-      # url: "https://cndl.synology.cn/download/DSM/release/7.2/64561/DSM_SA6400_64561.pat"
-      url: "https://global.download.synology.com/download/DSM/release/7.2/64561/DSM_SA6400_64561.pat"
-      hash: "6123f757507edb67c3b03909a30f1c539947af4e1789c6d02b87ace46fddcfdc"
-      ramdisk-hash: "034d0d9a102e068054c8ef8afc6ff9a07fab056dafd5cc7c57cbb15eb5786315"
-      zimage-hash: "bde2e7a7a482a21e2dc1d9a6ad4cc7b79726c7d63a5e7ff777dbd3ce2a638b68"
-      md5-hash: "596fba7691d54ba45ff383d5f73b8bcb"
+      # url: "https://cndl.synology.cn/download/DSM/release/7.2/64570/DSM_SA6400_64561.pat"
+      url: "https://global.download.synology.com/download/DSM/release/7.2/64570/DSM_SA6400_64570.pat"
+      hash: "8a66de2d7380ac5ff1e0cb01153461b2bbbe73785dac0bd37067ba2063e21df6"
+      ramdisk-hash: "48227142edd6ea969ebec6c3160c9939aef5a853e1ba2556d3401a68c5953357"
+      zimage-hash: "6fd6d57b5b856569b3c48e3a416c0a68fc8bcd45db1ebd09bdb5b79f4dfc3300"
+      md5-hash: "89cc168c870c733a04fb7b5c7144e4df"
     patch:
       - "ramdisk-sa6400-64551-disable-root-pwd.patch"
       - "ramdisk-sa6400-64551-init-script.patch"

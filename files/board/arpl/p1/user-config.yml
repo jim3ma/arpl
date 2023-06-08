@@ -1,14 +1,14 @@
 lkm: dev
 directboot: "true"
 model: "SA6400"
-build: "64561"
+build: "64570"
 sn: "2270XXXBN4YEE"
 maxdisks: ""
 layout: qwerty
 keymap: ""
 redirect-linuxrc-output: "true"
-ramdisk-hash: "034d0d9a102e068054c8ef8afc6ff9a07fab056dafd5cc7c57cbb15eb5786315"
-zimage-hash: "bde2e7a7a482a21e2dc1d9a6ad4cc7b79726c7d63a5e7ff777dbd3ce2a638b68"
+ramdisk-hash: "48227142edd6ea969ebec6c3160c9939aef5a853e1ba2556d3401a68c5953357"
+zimage-hash: "6fd6d57b5b856569b3c48e3a416c0a68fc8bcd45db1ebd09bdb5b79f4dfc3300"
 cmdline:
   netif_num: "4"
   mac1: 7e21363bcd10
@@ -33,7 +33,6 @@ synoinfo:
 addons:
   acpid: ""
   console: ""
-  cpuinfo: ""
   kvm-intel: ""
   misc: ""
   dbgutils: ""
@@ -50,6 +49,7 @@ modules:
   aacraid: ""
   # gpu
   i915: ""
+  vmwgfx: ""
   # network
   alx: ""
   atlantic: ""
@@ -63,6 +63,7 @@ modules:
   r8125: ""
   r8152: ""
   r8169: ""
+  vmxnet3: ""
   # virtio
   virtio_console: ""
   virtio_mmio: ""
