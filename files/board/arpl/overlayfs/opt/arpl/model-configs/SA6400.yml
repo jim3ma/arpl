@@ -32,7 +32,7 @@ disks: 16
 dt: true
 builds:
   42962:
-    ver: "7.1.1"
+    ver: "7.1"
     kver: "5.10.55"
     rd-compressed: false
     efi-bug: no

@@ -151,7 +151,7 @@ mkdir -p "${RAMDISK_PATH}/usr/local/sbin"
 ln -sf /usr/bin/kmod "${RAMDISK_PATH}/usr/local/sbin/modprobe"
 
 # Copying LKM to /usr/lib/modules
-gzip -dc "${LKM_PATH}/rp-${PLATFORM}-${KVER}-${LKM}.ko.gz" > "${RAMDISK_PATH}/usr/lib/modules/rp.ko"
+gzip -dc "${LKM_PATH}/rp-${PLATFORM}-${KVER}-${DSM_VER}-${LKM}.ko.gz" > "${RAMDISK_PATH}/usr/lib/modules/rp.ko"
 
 # Addons
 #MAXDISKS=`readConfigKey "maxdisks" "${USER_CONFIG_FILE}"`

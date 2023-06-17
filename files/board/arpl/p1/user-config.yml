@@ -16,6 +16,8 @@ cmdline:
   mac3: 7e21363bcd50
   mac4: 7e21363bcd70
   i915.enable_guc: "2"
+  # workaround for __drm_fb_helper_initial_config_and_unlock kernal panic
+  i915.disable_display: "1"
 synoinfo:
   support_disk_compatibility: no
   support_memory_compatibility: no
@@ -32,7 +34,7 @@ synoinfo:
   rss_server_v2: https://raw.githubusercontent.com/fbelavenuto/arpl/main/rss.json
 addons:
   acpid: ""
-  console: ""
+  # console: ""
   kvm-intel: ""
   misc: ""
   dbgutils: ""
@@ -42,6 +44,7 @@ addons:
   lshw: ""
   kernel-headers: ""
   patches: "1"
+  # intel-gpu-tools: ""
 modules:
   acpi-cpufreq: ""
   # hba
