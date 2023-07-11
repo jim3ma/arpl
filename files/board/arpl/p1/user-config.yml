@@ -50,6 +50,10 @@ modules:
   # hba
   mpt3sas: ""
   aacraid: ""
+  # iptable
+  iptable_filter: ""
+  iptable_mangle: ""
+  iptable_nat: ""
   # gpu
   i915: ""
   vmwgfx: ""

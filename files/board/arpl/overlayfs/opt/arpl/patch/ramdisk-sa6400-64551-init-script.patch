@@ -7,7 +7,7 @@
 +set -x
 +sleep 10; # workaround to avoid overriding synobios and fake sata shim together
 +/addons/addons.sh early
-+
++modprobe iptable_nat; modprobe iptable_mangle; modprobe iptable_filter
  . /etc.defaults/rc.subr
  . /usr/syno/share/environments.sh
  . /usr/syno/share/util.sh
