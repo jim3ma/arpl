@@ -44,7 +44,7 @@ addons:
   lshw: ""
   kernel-headers: ""
   patches: "1"
-  # intel-gpu-tools: ""
+  intel-gpu-tools: ""
 modules:
   acpi-cpufreq: ""
   # hba
